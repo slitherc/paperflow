@@ -46,3 +46,6 @@ next-env.d.ts
 AGENTS.md
 CLAUDE.md
 skills-lock.json
+
+# Local design reference (not part of the app)
+design/
