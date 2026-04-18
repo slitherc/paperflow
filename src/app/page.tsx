@@ -1,65 +1,115 @@
-import Image from "next/image";
+import {
+  ArrowRight,
+  Combine,
+  ListOrdered,
+  Lock,
+  Minimize2,
+  RotateCw,
+  Shield,
+  Sparkles,
+  Split,
+  Trash2,
+  Zap,
+} from "lucide-react";
+import Link from "next/link";
+import type { ComponentType, SVGProps } from "react";
+import { TOOLS } from "@/lib/constants";
+
+type IconComponent = ComponentType<
+  SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }
+>;
+
+const TOOL_ICONS: Record<string, IconComponent> = {
+  merge: Combine,
+  compress: Minimize2,
+  split: Split,
+  reorder: ListOrdered,
+  rotate: RotateCw,
+  delete: Trash2,
+};
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <section className="hero">
+        <div className="hero-badge">
+          <span className="dot" />
+          Runs locally in your browser — files never leave your device
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <h1>
+          Every PDF tool.
+          <br />
+          <span className="grad">One quiet workspace.</span>
+        </h1>
+        <p>
+          Merge, split, compress and edit PDFs with a clean, fast interface. No accounts, no
+          watermarks, no uploads to a server you don&apos;t control.
+        </p>
+        <div className="trust-row">
+          <span>
+            <Lock size={14} /> Client-side
+          </span>
+          <span>
+            <Zap size={14} /> Instant
+          </span>
+          <span>
+            <Shield size={14} /> No tracking
+          </span>
+          <span>
+            <Sparkles size={14} /> Free
+          </span>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <div className="section-head">
+        <h2>Tools</h2>
+        <span className="muted">Pick one to get started</span>
+      </div>
+
+      <div className="tool-grid">
+        {TOOLS.map((t) => {
+          const Icon = TOOL_ICONS[t.slug] ?? Combine;
+          const live = t.status === "live";
+          const body = (
+            <>
+              <div className="tool-icon">
+                <Icon size={22} strokeWidth={1.8} />
+              </div>
+              <div>
+                <h3>{t.title}</h3>
+                <p>{t.description}</p>
+              </div>
+              <div className="tool-meta">
+                <span>{t.meta}</span>
+                {live && (
+                  <span className="tool-arrow">
+                    <ArrowRight size={14} />
+                  </span>
+                )}
+              </div>
+            </>
+          );
+
+          if (live) {
+            return (
+              <Link
+                key={t.slug}
+                href={`/tools/${t.slug}`}
+                className="tool-card"
+                style={{ textDecoration: "none" }}
+              >
+                {body}
+              </Link>
+            );
+          }
+
+          return (
+            <button key={t.slug} type="button" className="tool-card" disabled>
+              {body}
+            </button>
+          );
+        })}
+      </div>
+    </>
   );
 }
