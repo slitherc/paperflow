@@ -123,8 +123,8 @@ The workflow sets `NEXT_PUBLIC_BASE_PATH=/paperflow` at build time so asset URLs
 - [x] Glass/aurora design system ported
 - [x] Merge PDFs — UI complete, logic stub
 - [x] Compress PDF — UI complete, logic stub
-- [ ] Implement `lib/pdf/merge.ts`
-- [ ] Implement `lib/pdf/compress.ts`
+- [x] Implement `lib/pdf/merge.ts`
+- [x] Implement `lib/pdf/compress.ts` (rasterize-per-page; text becomes non-selectable)
 - [ ] Split PDF (UI + logic)
 - [ ] Reorder Pages (UI + logic)
 - [ ] Rotate Pages (UI + logic)

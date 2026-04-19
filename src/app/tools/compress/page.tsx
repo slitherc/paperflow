@@ -1,14 +1,13 @@
 "use client";
 
 import { ArrowLeft, Download, Zap } from "lucide-react";
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import { toast } from "sonner";
 import { Crumb } from "@/components/pdf/crumb";
 import { PdfDropzone } from "@/components/pdf/pdf-dropzone";
 import { ProgressRing } from "@/components/pdf/progress-ring";
 import { Segmented } from "@/components/pdf/segmented";
 import { Steps } from "@/components/pdf/steps";
-import { Slider } from "@/components/ui/slider";
 import { downloadBlob } from "@/lib/download";
 import { formatBytes } from "@/lib/format";
 import { compressPdf } from "@/lib/pdf/compress";
@@ -210,36 +209,43 @@ export default function CompressPage() {
               })}
             </div>
 
-            <div style={{ marginTop: 24 }}>
-              <h3 style={{ margin: "0 0 16px", fontSize: 16, fontWeight: 600 }}>Advanced</h3>
-              <div className="slider-block">
-                <label>
-                  <span>Image quality</span>
-                  <span className="v">{imageQuality}%</span>
-                </label>
-                <Slider
-                  value={[imageQuality]}
-                  onValueChange={(v) => setImageQuality(v[0] ?? 72)}
-                  min={20}
-                  max={100}
-                  step={1}
-                />
-              </div>
-              <div className="slider-block">
-                <label>
-                  <span>Strip metadata &amp; hidden layers</span>
-                </label>
-                <Segmented
-                  options={[
-                    { value: "yes", label: "On" },
-                    { value: "no", label: "Off" },
-                  ]}
-                  value="yes"
-                  onChange={() => {
-                    /* wired in v2 */
-                  }}
-                />
-              </div>
+            <h3 className="pf-advanced-head">Advanced</h3>
+
+            <div className="slider-block">
+              <label htmlFor="image-quality-range">
+                <span>Image quality</span>
+                <span className="v">{imageQuality}%</span>
+              </label>
+              <input
+                id="image-quality-range"
+                type="range"
+                className="pf-range"
+                min={20}
+                max={100}
+                step={1}
+                value={imageQuality}
+                onChange={(e) => setImageQuality(Number(e.target.value))}
+                style={
+                  {
+                    "--pct": `${((imageQuality - 20) / (100 - 20)) * 100}%`,
+                  } as CSSProperties
+                }
+              />
+            </div>
+
+            <div className="pf-form-row">
+              <span>Strip metadata &amp; hidden layers</span>
+              <Segmented
+                options={[
+                  { value: "yes", label: "On" },
+                  { value: "no", label: "Off" },
+                ]}
+                value="yes"
+                onChange={() => {
+                  /* wired in v2 */
+                }}
+                ariaLabel="Strip metadata"
+              />
             </div>
           </div>
 
@@ -323,17 +329,29 @@ export default function CompressPage() {
         </div>
       )}
 
-      {stage === "done" && file && (
+      {stage === "done" && file && (() => {
+        const actualSavings = output
+          ? Math.round((1 - output.byteLength / file.size) * 100)
+          : savings;
+        const hasSavings = output ? actualSavings > 0 : true;
+        const title = !output
+          ? "Compression pipeline ran"
+          : hasSavings
+            ? "Compression complete"
+            : "No further compression possible";
+        const message = !output
+          ? "The UI flow works end-to-end. Wire up lib/pdf/compress.ts to produce real output."
+          : hasSavings
+            ? "Your PDF is ready to download."
+            : "This PDF was already well-compressed — the rasterized output is larger than the input. Try a stronger preset, or keep your original file.";
+
+        return (
         <div className="glass result-card" style={{ marginTop: 24 }}>
           <div className="result-icon">
             <Download size={32} strokeWidth={2.4} />
           </div>
-          <h3>{output ? "Compression complete" : "Compression pipeline ran"}</h3>
-          <p>
-            {output
-              ? `Your PDF is ready to download.`
-              : "The UI flow works end-to-end. Wire up lib/pdf/compress.ts to produce real output."}
-          </p>
+          <h3>{title}</h3>
+          <p>{message}</p>
           <div className="result-stats">
             <div className="stat-chip">
               <div className="l">Before</div>
@@ -346,10 +364,12 @@ export default function CompressPage() {
               </div>
             </div>
             <div className="stat-chip">
-              <div className="l">Saved</div>
-              <div className="v savings">
+              <div className="l">{hasSavings ? "Saved" : "Change"}</div>
+              <div className={hasSavings ? "v savings" : "v"}>
                 {output
-                  ? `−${Math.round((1 - output.byteLength / file.size) * 100)}%`
+                  ? hasSavings
+                    ? `−${actualSavings}%`
+                    : `+${Math.abs(actualSavings)}%`
                   : `−${savings}%`}
               </div>
             </div>
@@ -368,7 +388,8 @@ export default function CompressPage() {
             </button>
           </div>
         </div>
-      )}
+        );
+      })()}
     </>
   );
 }

@@ -1020,6 +1020,114 @@
   color: var(--pf-fg);
 }
 
+/* ---------- Slider block + native range input ---------- */
+.slider-block {
+  margin-bottom: 18px;
+}
+.slider-block > label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  margin-bottom: 10px;
+  color: var(--pf-fg-muted);
+}
+.slider-block > label .v {
+  font-family: var(--font-geist-mono), monospace;
+  color: var(--pf-fg);
+  font-weight: 500;
+}
+input[type="range"].pf-range {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  margin: 4px 0;
+  cursor: pointer;
+}
+input[type="range"].pf-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--pf-accent) 0 var(--pct, 50%),
+    var(--pf-surface-hover) var(--pct, 50%) 100%
+  );
+  border: 1px solid var(--pf-border);
+}
+input[type="range"].pf-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid var(--pf-border-strong);
+  box-shadow:
+    0 2px 8px oklch(0 0 0 / 0.18),
+    0 0 0 4px var(--pf-accent-ring);
+  margin-top: -7px;
+  cursor: pointer;
+}
+input[type="range"].pf-range::-moz-range-track {
+  height: 6px;
+  border-radius: 6px;
+  background: var(--pf-surface-hover);
+  border: 1px solid var(--pf-border);
+}
+input[type="range"].pf-range::-moz-range-progress {
+  height: 6px;
+  border-radius: 6px;
+  background: var(--pf-accent);
+}
+input[type="range"].pf-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid var(--pf-border-strong);
+  box-shadow:
+    0 2px 8px oklch(0 0 0 / 0.18),
+    0 0 0 4px var(--pf-accent-ring);
+  cursor: pointer;
+}
+input[type="range"].pf-range:focus-visible {
+  outline: none;
+}
+
+/* ---------- Form row (compact label + control on one line) ---------- */
+.pf-form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  font-size: 13px;
+  color: var(--pf-fg-muted);
+}
+
+/* ---------- Advanced section heading spacing ---------- */
+.pf-advanced-head {
+  margin: 28px 0 14px;
+  padding-top: 20px;
+  border-top: 1px solid var(--pf-border);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--pf-fg);
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Segmented: compact width variant ---------- */
+.segmented.segmented-compact {
+  width: auto;
+  flex: none;
+}
+.segmented.segmented-compact button {
+  flex: none;
+  padding: 6px 14px;
+  min-width: 44px;
+}
+
 /* ---------- Input group (text input + suffix) ---------- */
 .pf-input-group {
   display: flex;
