@@ -4,6 +4,7 @@ import { Plus, Upload } from "lucide-react";
 import { useCallback } from "react";
 import { type FileRejection, useDropzone } from "react-dropzone";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { ACCEPTED_MIME_TYPES, MAX_FILE_SIZE_HARD, MAX_FILE_SIZE_SOFT } from "@/lib/constants";
 import { formatBytes } from "@/lib/format";
 
@@ -73,17 +74,17 @@ export function PdfDropzone({
       </div>
       <h3>{title}</h3>
       <p>{subtitle}</p>
-      <button
-        type="button"
-        className="pf-btn pf-btn-primary pf-btn-lg"
+      <Button
+        size="lg"
+        className="h-11 px-6 text-sm"
         onClick={(e) => {
           e.stopPropagation();
           open();
         }}
         disabled={disabled}
       >
-        <Plus size={16} /> Choose files
-      </button>
+        <Plus /> Choose files
+      </Button>
     </div>
   );
 }

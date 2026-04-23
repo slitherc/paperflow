@@ -1,6 +1,7 @@
 import { FileText } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { Button } from "@/components/ui/button";
 
 const NAV = [
   { href: "/", label: "Tools" },
@@ -33,12 +34,12 @@ export function Header() {
         </nav>
         <div className="topbar-actions">
           <ThemeToggle />
-          <button type="button" className="pf-btn">
+          <Button variant="outline" size="lg" className="px-4 py-4.5">
             Sign in
-          </button>
-          <button type="button" className="pf-btn pf-btn-primary">
+          </Button>
+          <Button size="lg" className="px-4 py-4.5">
             Get Pro
-          </button>
+          </Button>
         </div>
       </div>
     </header>
