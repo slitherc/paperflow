@@ -1,14 +1,23 @@
 "use client";
 
 import { ArrowLeft, ArrowRight, Download, Plus } from "lucide-react";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { Crumb } from "@/components/pdf/crumb";
 import { FileRow } from "@/components/pdf/file-row";
 import { PdfDropzone } from "@/components/pdf/pdf-dropzone";
 import { ProgressRing } from "@/components/pdf/progress-ring";
 // import { Segmented } from "@/components/pdf/segmented"; // re-enable when bookmarks feature is wired
 import { Steps } from "@/components/pdf/steps";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ACCEPTED_MIME_TYPES } from "@/lib/constants";
 import { downloadBlob } from "@/lib/download";
@@ -130,12 +139,22 @@ export default function MergePage() {
 
   return (
     <>
-      <Crumb
-        items={[
-          { label: "Tools", onClick: () => history.back(), icon: <ArrowLeft size={14} /> },
-          { label: "Merge PDFs" },
-        ]}
-      />
+      <Breadcrumb className="mb-1.5">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/" className="inline-flex items-center gap-1.5">
+                <ArrowLeft className="size-3.5" />
+                Tools
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Merge PDFs</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <div className="flow-header">
         <h2>Merge PDFs</h2>
@@ -173,13 +192,13 @@ export default function MergePage() {
                   Drag the handle to reorder. Top of the list becomes the first page.
                 </p>
               </div>
-              <button
-                type="button"
-                className="pf-btn"
+              <Button
+                variant="outline"
+                size="lg"
                 onClick={() => addMoreInputRef.current?.click()}
               >
-                <Plus size={14} /> Add more
-              </button>
+                <Plus /> Add more
+              </Button>
               <input
                 ref={addMoreInputRef}
                 type="file"
@@ -261,15 +280,14 @@ export default function MergePage() {
               selected value into `mergePdfs(...)` as a new option.
             */}
 
-            <button
-              type="button"
-              className="pf-btn pf-btn-primary pf-btn-lg"
-              style={{ width: "100%", justifyContent: "center", marginTop: 8 }}
+            <Button
+              size="lg"
+              className="mt-2 h-11 w-full px-6 text-sm"
               disabled={files.length < 2}
               onClick={startMerge}
             >
-              Merge {files.length} files <ArrowRight size={14} />
-            </button>
+              Merge {files.length} files <ArrowRight />
+            </Button>
             {files.length < 2 && (
               <div
                 style={{
@@ -349,18 +367,18 @@ export default function MergePage() {
               </div>
             </div>
           </div>
-          <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
-            <button
-              type="button"
-              className="pf-btn pf-btn-primary pf-btn-lg"
+          <div className="flex flex-wrap justify-center gap-2.5">
+            <Button
+              size="lg"
+              className="h-11 px-6 text-sm"
               onClick={handleDownload}
               disabled={!output}
             >
-              <Download size={16} /> Download PDF
-            </button>
-            <button type="button" className="pf-btn pf-btn-lg" onClick={reset}>
+              <Download /> Download PDF
+            </Button>
+            <Button variant="outline" size="lg" className="h-11 px-6 text-sm" onClick={reset}>
               Start over
-            </button>
+            </Button>
           </div>
         </div>
       )}

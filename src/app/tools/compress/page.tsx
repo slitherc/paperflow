@@ -1,13 +1,22 @@
 "use client";
 
 import { ArrowLeft, Download, Zap } from "lucide-react";
+import Link from "next/link";
 import { type CSSProperties, useState } from "react";
 import { toast } from "sonner";
-import { Crumb } from "@/components/pdf/crumb";
 import { PdfDropzone } from "@/components/pdf/pdf-dropzone";
 import { ProgressRing } from "@/components/pdf/progress-ring";
 import { Segmented } from "@/components/pdf/segmented";
 import { Steps } from "@/components/pdf/steps";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 import { downloadBlob } from "@/lib/download";
 import { formatBytes } from "@/lib/format";
 import { compressPdf } from "@/lib/pdf/compress";
@@ -131,12 +140,22 @@ export default function CompressPage() {
 
   return (
     <>
-      <Crumb
-        items={[
-          { label: "Tools", onClick: () => history.back(), icon: <ArrowLeft size={14} /> },
-          { label: "Compress PDF" },
-        ]}
-      />
+      <Breadcrumb className="mb-1.5">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/" className="inline-flex items-center gap-1.5">
+                <ArrowLeft className="size-3.5" />
+                Tools
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Compress PDF</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <div className="flow-header">
         <h2>Compress PDF</h2>
@@ -285,14 +304,9 @@ export default function CompressPage() {
               </div>
             </div>
 
-            <button
-              type="button"
-              className="pf-btn pf-btn-primary pf-btn-lg"
-              style={{ width: "100%", justifyContent: "center", marginTop: 8 }}
-              onClick={start}
-            >
-              <Zap size={14} /> Compress now
-            </button>
+            <Button size="lg" className="mt-2 h-11 w-full px-6 text-sm" onClick={start}>
+              <Zap /> Compress now
+            </Button>
           </div>
         </div>
       )}
@@ -374,18 +388,18 @@ export default function CompressPage() {
               </div>
             </div>
           </div>
-          <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
-            <button
-              type="button"
-              className="pf-btn pf-btn-primary pf-btn-lg"
+          <div className="flex flex-wrap justify-center gap-2.5">
+            <Button
+              size="lg"
+              className="h-11 px-6 text-sm"
               onClick={handleDownload}
               disabled={!output}
             >
-              <Download size={16} /> Download PDF
-            </button>
-            <button type="button" className="pf-btn pf-btn-lg" onClick={reset}>
+              <Download /> Download PDF
+            </Button>
+            <Button variant="outline" size="lg" className="h-11 px-6 text-sm" onClick={reset}>
               Compress another
-            </button>
+            </Button>
           </div>
         </div>
         );

@@ -342,68 +342,6 @@
   align-items: center;
 }
 
-/* ---------- Custom buttons (complements shadcn Button) ---------- */
-.pf-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 16px;
-  border-radius: 10px;
-  font: inherit;
-  font-size: 13.5px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  border: 1px solid var(--pf-border-strong);
-  background: var(--pf-surface);
-  color: var(--pf-fg);
-  cursor: pointer;
-  transition: all 0.15s ease;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-.pf-btn:hover {
-  background: var(--pf-surface-hover);
-  transform: translateY(-1px);
-}
-.pf-btn:active {
-  transform: translateY(0);
-}
-.pf-btn-primary {
-  background: var(--pf-accent);
-  color: var(--pf-accent-fg);
-  border-color: transparent;
-  box-shadow:
-    0 4px 16px var(--pf-accent-ring),
-    inset 0 1px 0 oklch(1 0 0 / 0.25);
-}
-.pf-btn-primary:hover {
-  background: oklch(0.58 0.19 var(--accent-h));
-  color: var(--pf-accent-fg);
-}
-.pf-btn-ghost {
-  background: transparent;
-  border-color: transparent;
-}
-.pf-btn-ghost:hover {
-  background: var(--pf-surface-hover);
-}
-.pf-btn-icon {
-  padding: 8px;
-  width: 34px;
-  height: 34px;
-  justify-content: center;
-}
-.pf-btn-lg {
-  padding: 12px 22px;
-  font-size: 14px;
-  border-radius: 12px;
-}
-.pf-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
 /* ---------- Main ---------- */
 .main {
   max-width: 1280px;
@@ -921,37 +859,6 @@
 }
 .stat-chip .v.savings {
   color: var(--pf-success);
-}
-
-/* ---------- Breadcrumb ---------- */
-.crumb {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--pf-fg-muted);
-  margin-bottom: 6px;
-}
-.crumb button {
-  background: transparent;
-  border: none;
-  color: var(--pf-fg-muted);
-  font: inherit;
-  font-size: 13px;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 6px;
-  margin-left: -8px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.crumb button:hover {
-  background: var(--pf-surface-hover);
-  color: var(--pf-fg);
-}
-.crumb .sep {
-  color: var(--pf-fg-subtle);
 }
 
 /* ---------- Steps ---------- */

@@ -1,5 +1,14 @@
 import { ArrowLeft, Sparkles } from "lucide-react";
 import Link from "next/link";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 import { getTool } from "@/lib/constants";
 
 interface ComingSoonProps {
@@ -13,19 +22,22 @@ export function ComingSoon({ slug }: ComingSoonProps) {
 
   return (
     <>
-      <nav className="crumb" aria-label="Breadcrumb">
-        <Link
-          href="/"
-          className="pf-btn pf-btn-ghost"
-          style={{ padding: "4px 8px", marginLeft: -8, fontSize: 13 }}
-        >
-          <ArrowLeft size={14} /> Tools
-        </Link>
-        <span className="sep" aria-hidden="true">
-          /
-        </span>
-        <span>{title}</span>
-      </nav>
+      <Breadcrumb className="mb-1.5">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/" className="inline-flex items-center gap-1.5">
+                <ArrowLeft className="size-3.5" />
+                Tools
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <div className="glass result-card" style={{ marginTop: 24, padding: 56 }}>
         <div
@@ -42,10 +54,12 @@ export function ComingSoon({ slug }: ComingSoonProps) {
         <p style={{ color: "var(--pf-fg-subtle)", fontSize: 13 }}>
           In the works — check back soon.
         </p>
-        <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 18 }}>
-          <Link href="/" className="pf-btn pf-btn-lg">
-            <ArrowLeft size={16} /> Back to tools
-          </Link>
+        <div className="mt-4 flex flex-wrap justify-center gap-2.5">
+          <Button variant="outline" size="lg" className="h-11 px-6 text-sm" asChild>
+            <Link href="/">
+              <ArrowLeft /> Back to tools
+            </Link>
+          </Button>
         </div>
       </div>
     </>
