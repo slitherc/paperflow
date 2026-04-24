@@ -31,6 +31,7 @@ export interface SplitOptions {
   pages?: number[];
   ranges?: PageRange[];
   everyN?: number;
+  mergeAll?: boolean;
 }
 
 export interface RotateOptions {
