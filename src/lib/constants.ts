@@ -36,8 +36,8 @@ export const TOOLS: ReadonlyArray<ToolDef> = [
     slug: "split",
     title: "Split PDF",
     description: "Extract pages or split a PDF into multiple documents.",
-    status: "soon",
-    meta: "Soon",
+    status: "live",
+    meta: "Popular",
   },
   {
     slug: "reorder",
