@@ -2,11 +2,16 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
+  const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
+
+  useEffect(() => setMounted(true), []);
+
+  const isDark = mounted && resolvedTheme === "dark";
 
   return (
     <Button
@@ -15,9 +20,8 @@ export function ThemeToggle() {
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label="Toggle theme"
       title="Toggle theme"
-      suppressHydrationWarning
     >
-      <span suppressHydrationWarning>{isDark ? <Sun /> : <Moon />}</span>
+      {isDark ? <Sun /> : <Moon />}
     </Button>
   );
 }
