@@ -39,6 +39,29 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
   --radius-2xl: calc(var(--radius) * 1.8);
+
+  /* Paperflow tokens exposed as Tailwind utilities.
+     Values are wrapped in var(...) so light/dark switching still works at runtime. */
+  --color-pf-bg: var(--pf-bg);
+  --color-pf-bg-2: var(--pf-bg-2);
+  --color-pf-surface: var(--pf-surface);
+  --color-pf-surface-solid: var(--pf-surface-solid);
+  --color-pf-surface-hover: var(--pf-surface-hover);
+  --color-pf-border: var(--pf-border);
+  --color-pf-border-strong: var(--pf-border-strong);
+  --color-pf-fg: var(--pf-fg);
+  --color-pf-fg-muted: var(--pf-fg-muted);
+  --color-pf-fg-subtle: var(--pf-fg-subtle);
+  --color-pf-accent: var(--pf-accent);
+  --color-pf-accent-soft: var(--pf-accent-soft);
+  --color-pf-accent-ring: var(--pf-accent-ring);
+  --color-pf-accent-fg: var(--pf-accent-fg);
+  --color-pf-success: var(--pf-success);
+  --color-pf-success-soft: var(--pf-success-soft);
+  --color-pf-highlight: var(--pf-highlight);
+
+  --shadow-pf-lg: var(--pf-shadow-lg);
+  --shadow-pf-md: var(--pf-shadow-md);
 }
 
 /* ---------- Paperflow design tokens (light) ---------- */
@@ -340,6 +363,19 @@
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+@media (max-width: 767.98px) {
+  .topbar-inner {
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  .nav-links {
+    display: none;
+  }
+  .logo {
+    font-size: 15px;
+  }
 }
 
 /* ---------- Main ---------- */
